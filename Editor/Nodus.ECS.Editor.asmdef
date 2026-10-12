@@ -1,0 +1,22 @@
+{
+  "name": "Nodus.ECS.Editor",
+  "rootNamespace": "Nodus.ECS.Editor",
+  "references": [
+    "Nodus.ECS",
+    "Friflo.Engine.Unity"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Friflo.Engine.ECS.dll",
+    "Newtonsoft.Json.dll"
+  ],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

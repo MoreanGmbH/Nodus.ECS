@@ -1,0 +1,17 @@
+using Friflo.Engine.ECS;
+using Nodus.ECS;
+using UnityEngine;
+
+[ComponentKey("Example.OpenPanel")]
+public struct OpenPanel : IComponent {
+    public string Id;
+}
+
+// Put this on one scene object. EcsStoreBinding on your ECSStore registers its StoreId.
+public sealed class PrototypeComponents : MonoBehaviour {
+    void Awake() => EcsRegistry.RegisterComponent<OpenPanel>();
+}
+
+// Trigger from a button, hotspot, or another system:
+// EcsRuntime.Spawn(entitiesDefinition);
+// EcsRuntime.Spawn(jsonFromUrl);

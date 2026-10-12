@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "Store": "MyPackage",
+  "Entities": [
+    {
+      "Components": [
+        {
+          "Key": "Example.OpenPanel",
+          "Data": {
+            "Id": "Feedback"
+          }
+        }
+      ]
+    }
+  ]
+}
