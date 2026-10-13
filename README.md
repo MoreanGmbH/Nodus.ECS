@@ -2,6 +2,12 @@
 
 Unity 6.6 + Friflo ECS entity authoring and JSON execution.
 
+## Installation
+
+```powershell
+git submodule add https://github.com/MoreanGmbH/Nodus.ECS.git Packages/com.nodus.ecs
+```
+
 ## Assets
 
 - **Component** (`Nodus.ECS.Definitions.Component`): `Key`, `Json` (structured in the Inspector).
