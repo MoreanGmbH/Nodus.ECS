@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+using Entities = Nodus.ECS.Definitions.Entities;
+
 namespace Nodus.ECS.Editor {
     public sealed class EntitiesUrlComposer : EditorWindow {
         [SerializeField] string baseUrl = "https://app.example.com/";
-        [SerializeField] List<EntitiesDefinition> definitions = new();
+        [SerializeField] List<Entities> definitions = new();
 
         [MenuItem("Nodus/ECS/URL Composer")]
         static void Open() => GetWindow<EntitiesUrlComposer>("Nodus URL Composer");
@@ -16,7 +18,7 @@ namespace Nodus.ECS.Editor {
             EditorGUILayout.LabelField("Definitions (in order)", EditorStyles.boldLabel);
             for (int i = 0; i < definitions.Count; i++) {
                 EditorGUILayout.BeginHorizontal();
-                definitions[i] = (EntitiesDefinition)EditorGUILayout.ObjectField(definitions[i], typeof(EntitiesDefinition), false);
+                definitions[i] = (Entities)EditorGUILayout.ObjectField(definitions[i], typeof(Entities), false);
                 if (GUILayout.Button("×", GUILayout.Width(24)))
                     definitions.RemoveAt(i--);
                 EditorGUILayout.EndHorizontal();
@@ -26,11 +28,8 @@ namespace Nodus.ECS.Editor {
             if (GUILayout.Button("Copy Embedded JSON URL"))
                 CopyEmbedded();
             if (definitions.Count == 1 && definitions[0] && GUILayout.Button("Copy Reference URL")) {
-                try {
-                    EditorGUIUtility.systemCopyBuffer = EcsUrls.Reference(baseUrl, definitions[0]);
-                } catch (Exception exception) {
-                    Debug.LogException(exception);
-                }
+                try { EditorGUIUtility.systemCopyBuffer = EcsUrls.Reference(baseUrl, definitions[0]); }
+                catch (Exception exception) { Debug.LogException(exception); }
             }
         }
 
@@ -48,10 +47,7 @@ namespace Nodus.ECS.Editor {
                     }
                 }
                 EditorGUIUtility.systemCopyBuffer = EcsUrls.Embedded(baseUrl, entities);
-                Debug.Log("Nodus.ECS: JSON URL copied.");
-            } catch (Exception exception) {
-                Debug.LogException(exception);
-            }
+            } catch (Exception exception) { Debug.LogException(exception); }
         }
     }
 }

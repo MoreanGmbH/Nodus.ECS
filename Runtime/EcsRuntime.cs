@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Friflo.Engine.ECS;
 using Newtonsoft.Json.Linq;
+using Entities = Nodus.ECS.Definitions.Entities;
 
 namespace Nodus.ECS {
     public static class EcsRuntime {
-        public static IReadOnlyList<Entity> Spawn(EntitiesDefinition definition) => Spawn(definition.ToData());
+        public static IReadOnlyList<Entity> Spawn(Entities definition) => Spawn(definition.ToData());
         public static IReadOnlyList<Entity> Spawn(string json) => Spawn(EcsJson.Parse(json));
 
         public static IReadOnlyList<Entity> Spawn(EntitiesData document) {
@@ -40,14 +41,10 @@ namespace Nodus.ECS {
             string storeId = string.IsNullOrWhiteSpace(data.Store) ? inheritedStore : data.Store;
             var plan = new Plan { Store = EcsRegistry.GetStore(storeId), ParentIndex = parentIndex };
             foreach (var component in data.Components)
-                plan.Components.Add(new ComponentPlan {
-                    Reader = EcsRegistry.GetReader(component.Key), Data = component.Data
-                });
-
+                plan.Components.Add(new ComponentPlan { Reader = EcsRegistry.GetReader(component.Key), Data = component.Data });
             int ownIndex = plans.Count;
             plans.Add(plan);
-            if (data.Children == null)
-                return;
+            if (data.Children == null) return;
             foreach (var child in data.Children)
                 PlanEntity(child, storeId, plans, ownIndex);
         }
